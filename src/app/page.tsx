@@ -431,7 +431,7 @@ export default function Home() {
                 <Globe className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Kumlink</h1>
+                <h1 className="text-2xl font-bold">Kumink</h1>
                 <p className="text-sm text-muted-foreground">Kumpulan Link Apapun</p>
               </div>
             </div>
@@ -595,7 +595,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t bg-muted/30 py-6 mt-auto">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© Kumlink - Kumpulan Link Apapun</p>
+          <p>© Kumink - Kumpulan Link Apapun</p>
           <p className="mt-1">Total {recommendations.length} link dalam {Object.keys(groupedRecommendations).length} kategori</p>
         </div>
       </footer>

@@ -1,141 +1,587 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# 🚀 Tutorial Lengkap: Deploy Link Directory ke Vercel + Supabase
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
-
-## ✨ Technology Stack
-
-This scaffold provides a robust foundation built with:
-
-### 🎯 Core Framework
-- **⚡ Next.js 16** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
-
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
-
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
-
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Fetch** - Promise-based HTTP request
-
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
-
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
-
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
-
-## 🎯 Why This Scaffold?
-
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
-
-## 🚀 Quick Start
-
-```bash
-# Install dependencies
-bun install
-
-# Start development server
-bun run dev
-
-# Build for production
-bun run build
-
-# Start production server
-bun start
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
-
-## 🤖 Powered by Z.ai
-
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
-
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
-
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
-```
-
-## 🎨 Available Features & Components
-
-This scaffold includes a comprehensive set of modern web development tools:
-
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
-
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
-
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
-
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Fetch + TanStack Query
-- **State Management**: Simple and scalable with Zustand
-
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
-
-## 🤝 Get Started with Z.ai
-
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+Panduan step-by-step dari nol sampai website live di internet.
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+## 📋 Yang Akan Kamu Pelajari
+
+1. ✅ Persiapan Akun (GitHub, Vercel, Supabase)
+2. ✅ Setup Database Supabase
+3. ✅ Persiapan Project
+4. ✅ Push ke GitHub
+5. ✅ Deploy ke Vercel
+6. ✅ Konfigurasi Environment Variables
+7. ✅ Migrasi Database
+8. ✅ Testing & Verifikasi
+9. ✅ Custom Domain (Opsional)
+
+---
+
+## 📦 Prerequisites (Yang Perlu Disiapkan)
+
+### 1. Akun GitHub
+- Daftar di: https://github.com/signup
+- Gratis, tidak perlu kartu kredit
+
+### 2. Akun Vercel
+- Daftar di: https://vercel.com/signup
+- Pilih "Continue with GitHub" untuk mudah
+- Gratis, tidak perlu kartu kredit
+
+### 3. Akun Supabase
+- Daftar di: https://supabase.com/sign-up
+- Bisa pakai GitHub atau Google
+- Gratis, tidak perlu kartu kredit
+
+### 4. Software yang Diperlukan
+- **Git**: https://git-scm.com/downloads
+- **Node.js** (v18+): https://nodejs.org/
+- **Bun** (opsional, lebih cepat): https://bun.sh/
+- **Code Editor**: VS Code direkomendasikan
+
+---
+
+## 1️⃣ SETUP SUPABASE DATABASE
+
+### Step 1.1: Buat Project Baru
+
+1. Buka https://supabase.com
+2. Klik tombol **"Start your project"** atau **"New Project"**
+3. Jika diminta, buat organization baru (nama bebas, contoh: "My Projects")
+4. Isi form pembuatan project:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  CREATE A NEW PROJECT                                        │
+├─────────────────────────────────────────────────────────────┤
+│  Name: link-directory                                        │
+│  Database Password: [BUAT PASSWORD KUAT]                     │
+│  ⚠️ SIMPAN PASSWORD INI! Nanti tidak bisa dilihat lagi       │
+│                                                              │
+│  Region: Southeast Asia (Singapore)                         │
+│  Plan: Free                                                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+5. Klik **"Create new project"**
+6. Tunggu ± 2-3 menit sampai project ready
+
+### Step 1.2: Dapatkan Connection String
+
+1. Di dashboard Supabase, klik icon **gear** (Settings) di sidebar kiri
+2. Klik **"Database"** di menu
+3. Scroll ke bagian **"Connection string"**
+4. Klik tab **"URI"**
+5. Kamu akan melihat string seperti ini:
+
+```
+postgresql://postgres.xxxxxxxx:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres
+```
+
+6. **Copy string tersebut** dan simpan di notepad
+
+### Step 1.3: Dapatkan Direct Connection String
+
+1. Masih di halaman yang sama
+2. Di bagian "Connection string", ubah mode dari **"Transaction"** ke **"Session"**
+3. Atau lihat di bagian bawah ada **"Connection info"**
+4. Copy string dengan port **5432**:
+
+```
+postgresql://postgres.xxxxxxxx:[YOUR-PASSWORD]@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres
+```
+
+5. **Simpan kedua string** di notepad:
+   - DATABASE_URL (port 6543) - untuk koneksi pooling
+   - DIRECT_DATABASE_URL (port 5432) - untuk migrasi
+
+### Step 1.4: Ganti [YOUR-PASSWORD]
+
+Di kedua string tadi, ganti `[YOUR-PASSWORD]` dengan password database yang kamu buat di Step 1.1.
+
+**Contoh:**
+```
+DATABASE_URL="postgresql://postgres.abc123def:MySecureP@ss123@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
+DIRECT_DATABASE_URL="postgresql://postgres.abc123def:MySecureP@ss123@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+```
+
+⚠️ **CATATAN:**
+- `abc123def` adalah project reference (unik untuk setiap project)
+- Password tidak boleh ada spasi
+- Jika password ada karakter khusus, perlu di-encode
+
+---
+
+## 2️⃣ PERSIAPAN PROJECT
+
+### Step 2.1: Download Project
+
+Jika kamu mendapat project ini dalam bentuk ZIP atau folder:
+
+```bash
+# Buka terminal/command prompt
+# Navigate ke folder project
+cd link-directory
+
+# Install dependencies
+bun install
+# atau jika pakai npm
+npm install
+```
+
+### Step 2.2: Setup Local Environment
+
+1. Buat file `.env` di root folder project
+2. Isi dengan:
+
+```env
+# Database Supabase
+DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres"
+DIRECT_DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres"
+
+# Admin Password untuk website
+ADMIN_PASSWORD="password-kamu-yang-kuat"
+```
+
+3. Ganti dengan string yang kamu dapat dari Supabase
+
+### Step 2.3: Ganti Schema untuk PostgreSQL
+
+Project ini default menggunakan SQLite, perlu diubah untuk Supabase:
+
+```bash
+# Copy schema PostgreSQL
+cp prisma/schema.supabase.prisma prisma/schema.prisma
+```
+
+Atau buka file `prisma/schema.prisma` dan ganti isinya dengan:
+
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Recommendation {
+  id           String   @id @default(cuid())
+  title        String
+  url          String
+  category     String
+  categoryIcon String?
+  imageUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@index([createdAt])
+}
+```
+
+### Step 2.4: Generate Prisma Client
+
+```bash
+bun run db:generate
+# atau
+npm run db:generate
+```
+
+### Step 2.5: Push Schema ke Supabase
+
+```bash
+bun run db:push
+# atau
+npx prisma db push
+```
+
+Jika berhasil, kamu akan melihat output:
+```
+🚀 Your database is now in sync with your Prisma schema.
+```
+
+### Step 2.6: Test Local
+
+```bash
+bun run dev
+# atau
+npm run dev
+```
+
+Buka http://localhost:3000 dan pastikan website berjalan dengan baik.
+
+---
+
+## 3️⃣ PUSH KE GITHUB
+
+### Step 3.1: Buat Repository Baru
+
+1. Buka https://github.com/new
+2. Isi form:
+
+```
+Repository name: link-directory
+Description: Kumpulan link apapun
+Visibility: Public (atau Private jika mau)
+```
+
+3. **JANGAN** centang "Add a README file"
+4. **JANGAN** centang "Add .gitignore"
+5. **JANGAN** pilih "Choose a license"
+6. Klik **"Create repository"**
+
+### Step 3.2: Initialize Git di Local
+
+```bash
+# Pastikan di folder project
+cd link-directory
+
+# Initialize git
+git init
+
+# Add semua file
+git add .
+
+# Commit pertama
+git commit -m "Initial commit: Link Directory app"
+```
+
+### Step 3.3: Push ke GitHub
+
+Ganti `USERNAME` dengan username GitHub kamu:
+
+```bash
+# Add remote
+git remote add origin https://github.com/USERNAME/link-directory.git
+
+# Set branch ke main
+git branch -M main
+
+# Push ke GitHub
+git push -u origin main
+```
+
+Jika diminta login:
+- Gunakan Personal Access Token (PAT), bukan password
+- Buat PAT di: GitHub > Settings > Developer settings > Personal access tokens
+
+---
+
+## 4️⃣ DEPLOY KE VERCEL
+
+### Step 4.1: Import Project
+
+1. Buka https://vercel.com
+2. Klik **"Add New..."** > **"Project"**
+3. Klik **"Import Git Repository"**
+4. Jika belum connect, klik **"Connect GitHub Account"**
+5. Pilih repository `link-directory`
+6. Klik **"Import"**
+
+### Step 4.2: Configure Project
+
+Di halaman "Configure Project":
+
+**Framework Preset:**
+- Pilih **Next.js**
+
+**Root Directory:**
+- Biarkan `./`
+
+**Build Command:**
+- Biarkan default: `next build`
+
+**Output Directory:**
+- Biarkan default: `.next`
+
+**Install Command:**
+- Biarkan default: `npm install` atau `bun install`
+
+### Step 4.3: Set Environment Variables
+
+Di bagian **"Environment Variables"**, tambahkan 3 variabel:
+
+**Variable 1:**
+```
+Name:  DATABASE_URL
+Value: postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+```
+
+**Variable 2:**
+```
+Name:  DIRECT_DATABASE_URL
+Value: postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres
+```
+
+**Variable 3:**
+```
+Name:  ADMIN_PASSWORD
+Value: password-kamu-yang-kuat
+```
+
+⚠️ **PENTING:**
+- Pastikan tidak ada spasi di awal/akhir value
+- Pastikan password sudah diganti dari `[YOUR-PASSWORD]`
+- Jangan ada quote di sekitar value
+
+### Step 4.4: Deploy
+
+1. Klik tombol **"Deploy"**
+2. Tunggu build process (± 1-3 menit)
+3. Kamu akan melihat:
+   - "Building" 
+   - "Deploying"
+   - "Ready" ✓
+
+4. Klik **"Continue to Dashboard"**
+
+---
+
+## 5️⃣ POST-DEPLOYMENT SETUP
+
+### Step 5.1: Verifikasi Website
+
+1. Di Vercel Dashboard, klik URL project (contoh: `link-directory.vercel.app`)
+2. Website harusnya sudah bisa diakses
+3. Coba fitur:
+   - ✅ Lihat halaman utama
+   - ✅ Klik tombol "Tambah"
+   - ✅ Masukkan password
+   - ✅ Tambah link baru
+   - ✅ Hapus link
+
+### Step 5.2: Cek Logs (Jika Error)
+
+Jika ada error:
+
+1. Di Vercel Dashboard, klik tab **"Deployments"**
+2. Klik deployment terbaru
+3. Klik tab **"Functions"** atau **"Logs"**
+4. Lihat error messages
+
+### Step 5.3: Run Database Migration
+
+Jika website error terkait database:
+
+**Option A: Via Vercel CLI**
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Login
+vercel login
+
+# Link project
+vercel link
+
+# Pull environment variables
+vercel env pull .env.local
+
+# Run migration
+npx prisma db push
+```
+
+**Option B: Via Local**
+
+```bash
+# Pastikan .env sudah benar
+# Run migration
+bun run db:push
+```
+
+---
+
+## 6️⃣ CUSTOM DOMAIN (OPSIONAL)
+
+### Step 6.1: Beli Domain
+
+Beli domain dari:
+- Namecheap: https://namecheap.com
+- GoDaddy: https://godaddy.com
+- Google Domains: https://domains.google
+- Cloudflare: https://cloudflare.com
+
+### Step 6.2: Add Domain ke Vercel
+
+1. Di Vercel Dashboard, klik project
+2. Klik **"Settings"** > **"Domains"**
+3. Masukkan domain (contoh: `mylinks.com`)
+4. Klik **"Add"**
+
+### Step 6.3: Configure DNS
+
+Vercel akan memberikan DNS records yang perlu ditambahkan:
+
+**Jika menggunakan subdomain (contoh: links.mydomain.com):**
+```
+Type: CNAME
+Name: links
+Value: cname.vercel-dns.com
+```
+
+**Jika menggunakan apex domain (contoh: mydomain.com):**
+```
+Type: A
+Name: @
+Value: 76.76.21.21
+```
+
+### Step 6.4: Update DNS di Domain Provider
+
+1. Login ke dashboard domain provider
+2. Masuk ke **DNS Management** atau **DNS Settings**
+3. Tambahkan record sesuai instruksi Vercel
+4. Simpan
+
+### Step 6.5: Tunggu Propagasi
+
+- DNS propagasi butuh 5 menit - 48 jam
+- Biasanya 5-30 menit sudah selesai
+- Cek status di Vercel Dashboard > Domains
+
+---
+
+## 7️⃣ TROUBLESHOOTING
+
+### Error: "Can't reach database server"
+
+**Penyebab:**
+- Connection string salah
+- Password salah
+- IP tidak di-allow
+
+**Solusi:**
+1. Cek ulang connection string
+2. Pastikan password benar
+3. Di Supabase, cek: Settings > Database > Connection pooling = enabled
+
+### Error: "Prisma Client could not be generated"
+
+**Solusi:**
+```bash
+# Di local
+bun run db:generate
+
+# Commit dan push
+git add .
+git commit -m "Regenerate Prisma Client"
+git push
+```
+
+### Error: "Build failed"
+
+**Solusi:**
+1. Cek build logs di Vercel
+2. Pastikan semua dependencies terinstall
+3. Coba hapus `node_modules` dan reinstall:
+```bash
+rm -rf node_modules
+bun install
+```
+
+### Website Blank / White Screen
+
+**Solusi:**
+1. Buka browser console (F12)
+2. Lihat error messages
+3. Cek environment variables di Vercel
+
+### Error: "P1001: Can't reach database"
+
+**Solusi:**
+1. Pastikan pakai port yang benar:
+   - `DATABASE_URL` = port 6543
+   - `DIRECT_DATABASE_URL` = port 5432
+2. Pastikan connection pooling aktif di Supabase
+
+---
+
+## 8️⃣ ENVIRONMENT VARIABLES CHECKLIST
+
+Pastikan semua variables sudah diset di Vercel:
+
+```
+✅ DATABASE_URL
+   Format: postgresql://postgres.[REF]:[PASS]@...pooler.supabase.com:6543/postgres
+   
+✅ DIRECT_DATABASE_URL  
+   Format: postgresql://postgres.[REF]:[PASS]@...pooler.supabase.com:5432/postgres
+   
+✅ ADMIN_PASSWORD
+   Format: terserah (minimal 6 karakter recommended)
+```
+
+---
+
+## 9️⃣ TIPS & BEST PRACTICES
+
+### Keamanan
+- ✅ Ganti ADMIN_PASSWORD secara berkala
+- ✅ Gunakan password yang kuat (campuran huruf, angka, simbol)
+- ✅ Jangan commit file `.env` ke GitHub
+- ✅ Aktifkan 2FA di GitHub, Vercel, dan Supabase
+
+### Performance
+- ✅ Supabase sudah otomatis backup harian (free tier)
+- ✅ Connection pooling mengoptimalkan performa
+- ✅ Vercel punya CDN global otomatis
+
+### Monitoring
+- ✅ Gunakan Vercel Analytics (gratis)
+- ✅ Cek Supabase logs untuk query performance
+- ✅ Set up alerts di Vercel untuk deployment failures
+
+---
+
+## 🔗 LINKS PENTING
+
+- **Supabase Dashboard**: https://supabase.com/dashboard
+- **Vercel Dashboard**: https://vercel.com/dashboard
+- **GitHub**: https://github.com
+- **Prisma Docs**: https://prisma.io/docs
+- **Next.js Docs**: https://nextjs.org/docs
+
+---
+
+## 📞 BUTUH BANTUAN?
+
+Jika mengalami masalah:
+
+1. **Vercel Status**: https://vercel-status.com
+2. **Supabase Status**: https://status.supabase.com
+3. **GitHub Status**: https://githubstatus.com
+4. **Stack Overflow**: Tag `vercel`, `supabase`, `next.js`
+
+---
+
+## ✅ CHECKLIST FINAL
+
+Sebelum menganggap selesai, pastikan:
+
+```
+✅ Supabase project sudah dibuat
+✅ Database schema sudah di-push
+✅ Project sudah di-push ke GitHub
+✅ Vercel project sudah dibuat
+✅ Environment variables sudah diset
+✅ Website bisa diakses
+✅ Bisa tambah link baru
+✅ Bisa hapus link
+✅ Password admin sudah diganti dari default
+```
+
+---
+
+Selamat! 🎉 Website Link Directory kamu sudah live di internet!
+
+Share URL website kamu dengan teman-teman. Mereka bisa:
+- Melihat semua link yang sudah ditambahkan
+- Menambahkan link baru (dengan password)
+- Menghapus link (dengan password)
+
+Happy deploying! 🚀
