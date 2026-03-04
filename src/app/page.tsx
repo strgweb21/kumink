@@ -30,79 +30,10 @@ import {
   Globe,
   Search,
   Lock,
-  Star,
-  Heart,
-  Zap,
-  Wrench,
-  Gamepad2,
-  Music,
-  Film,
-  BookOpen,
-  ShoppingCart,
-  Newspaper,
-  Code,
-  Users,
-  Shield,
-  Coffee,
-  Plane,
-  Camera,
-  Palette,
-  Briefcase,
   Check,
-  Tv,
-  Bell,
-  Settings,
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Calendar,
-  Clock,
-  Cloud,
-  Sun,
-  Moon,
-  Battery,
-  Wifi,
-  Bluetooth,
-  Printer,
-  Gift,
-  Award,
-  Flag,
-  Trophy,
-  Medal,
-  ThumbsUp,
-  ThumbsDown,
-  MessageCircle,
-  Send,
-  Share2,
-  Download,
-  Upload,
-  RefreshCw,
-  Edit,
-  Copy,
-  Scissors,
-  Eye,
-  EyeOff,
-  Volume2,
-  VolumeX,
-  Mic,
-  Video,
-  Image,
-  File,
-  Folder,
-  Archive,
-  Tag,
-  Hash,
-  Link,
-  Unlink,
-  Bold,
-  Italic,
-  Underline,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
   type LucideIcon
 } from 'lucide-react'
+import * as LucideIcons from 'lucide-react'
 
 interface Recommendation {
   id: string
@@ -114,86 +45,20 @@ interface Recommendation {
   createdAt: string
 }
 
-// Available icons for category
-const categoryIcons: { name: string; icon: LucideIcon; label: string }[] = [
-  // Original icons
-  { name: 'Star', icon: Star, label: 'Star' },
-  { name: 'Heart', icon: Heart, label: 'Heart' },
-  { name: 'Zap', icon: Zap, label: 'Zap' },
-  { name: 'Wrench', icon: Wrench, label: 'Tools' },
-  { name: 'Gamepad2', icon: Gamepad2, label: 'Game' },
-  { name: 'Music', icon: Music, label: 'Music' },
-  { name: 'Film', icon: Film, label: 'Film' },
-  { name: 'BookOpen', icon: BookOpen, label: 'Book' },
-  { name: 'ShoppingCart', icon: ShoppingCart, label: 'Shopping' },
-  { name: 'Newspaper', icon: Newspaper, label: 'News' },
-  { name: 'Code', icon: Code, label: 'Code' },
-  { name: 'Users', icon: Users, label: 'Social' },
-  { name: 'Shield', icon: Shield, label: 'Security' },
-  { name: 'Coffee', icon: Coffee, label: 'Coffee' },
-  { name: 'Plane', icon: Plane, label: 'Travel' },
-  { name: 'Camera', icon: Camera, label: 'Camera' },
-  { name: 'Palette', icon: Palette, label: 'Art' },
-  { name: 'Briefcase', icon: Briefcase, label: 'Work' },
-  { name: 'Globe', icon: Globe, label: 'Globe' },
-  { name: 'Tv', icon: Tv, label: 'TV' },
-  { name: 'Bell', icon: Bell, label: 'Notifications' },
-  { name: 'Settings', icon: Settings, label: 'Settings' },
-  { name: 'User', icon: User, label: 'Profile' },
-  { name: 'Mail', icon: Mail, label: 'Email' },
-  { name: 'Phone', icon: Phone, label: 'Phone' },
-  { name: 'MapPin', icon: MapPin, label: 'Location' },
-  { name: 'Calendar', icon: Calendar, label: 'Calendar' },
-  { name: 'Clock', icon: Clock, label: 'Time' },
-  { name: 'Cloud', icon: Cloud, label: 'Cloud' },
-  { name: 'Sun', icon: Sun, label: 'Weather' },
-  { name: 'Moon', icon: Moon, label: 'Night' },
-  { name: 'Battery', icon: Battery, label: 'Battery' },
-  { name: 'Wifi', icon: Wifi, label: 'WiFi' },
-  { name: 'Bluetooth', icon: Bluetooth, label: 'Bluetooth' },
-  { name: 'Printer', icon: Printer, label: 'Print' },
-  { name: 'Gift', icon: Gift, label: 'Gift' },
-  { name: 'Award', icon: Award, label: 'Award' },
-  { name: 'Flag', icon: Flag, label: 'Flag' },
-  { name: 'Trophy', icon: Trophy, label: 'Trophy' },
-  { name: 'Medal', icon: Medal, label: 'Medal' },
-  { name: 'ThumbsUp', icon: ThumbsUp, label: 'Like' },
-  { name: 'ThumbsDown', icon: ThumbsDown, label: 'Dislike' },
-  { name: 'MessageCircle', icon: MessageCircle, label: 'Chat' },
-  { name: 'Send', icon: Send, label: 'Send' },
-  { name: 'Share2', icon: Share2, label: 'Share' },
-  { name: 'Download', icon: Download, label: 'Download' },
-  { name: 'Upload', icon: Upload, label: 'Upload' },
-  { name: 'RefreshCw', icon: RefreshCw, label: 'Refresh' },
-  { name: 'Edit', icon: Edit, label: 'Edit' },
-  { name: 'Copy', icon: Copy, label: 'Copy' },
-  { name: 'Scissors', icon: Scissors, label: 'Cut' },
-  { name: 'Eye', icon: Eye, label: 'View' },
-  { name: 'EyeOff', icon: EyeOff, label: 'Hide' },
-  { name: 'Volume2', icon: Volume2, label: 'Volume' },
-  { name: 'VolumeX', icon: VolumeX, label: 'Mute' },
-  { name: 'Mic', icon: Mic, label: 'Microphone' },
-  { name: 'Video', icon: Video, label: 'Video' },
-  { name: 'Image', icon: Image, label: 'Image' },
-  { name: 'File', icon: File, label: 'File' },
-  { name: 'Folder', icon: Folder, label: 'Folder' },
-  { name: 'Archive', icon: Archive, label: 'Archive' },
-  { name: 'Tag', icon: Tag, label: 'Tag' },
-  { name: 'Hash', icon: Hash, label: 'Hashtag' },
-  { name: 'Link', icon: Link, label: 'Link' },
-  { name: 'Unlink', icon: Unlink, label: 'Unlink' },
-  { name: 'Bold', icon: Bold, label: 'Bold' },
-  { name: 'Italic', icon: Italic, label: 'Italic' },
-  { name: 'Underline', icon: Underline, label: 'Underline' },
-  { name: 'AlignLeft', icon: AlignLeft, label: 'Align Left' },
-  { name: 'AlignCenter', icon: AlignCenter, label: 'Align Center' },
-  { name: 'AlignRight', icon: AlignRight, label: 'Align Right' },
-]
+// Get all available Lucide icon names
+const allIconNames = Object.keys(LucideIcons).filter(
+  key => key !== 'default' && key !== 'createLucideIcon' && key !== 'LucideIcon' && key !== 'icons' && !key.startsWith('_')
+)
 
 // Get icon component by name
 const getIconComponent = (iconName: string | null): LucideIcon => {
-  const found = categoryIcons.find(i => i.name === iconName)
-  return found?.icon || Globe
+  if (!iconName) return Globe
+
+  const icon = LucideIcons[iconName as keyof typeof LucideIcons]
+
+  if (!icon) return Globe
+
+  return icon as LucideIcon
 }
 
 export default function Home() {
@@ -731,34 +596,55 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Icon Picker */}
+                {/* Icon picker - only show for new categories */}
                 {!isSelectedCategoryExisting && formData.category && (
                   <div className="grid gap-2">
-                    <Label>Icon Kategori Baru</Label>
-                    <div className="grid grid-cols-7 gap-2">
-                      {categoryIcons.map((icon) => {
-                        const IconComponent = icon.icon
-                        return (
-                          <button
-                            key={icon.name}
-                            type="button"
-                            onClick={() =>
-                              setFormData({
-                                ...formData,
-                                categoryIcon: icon.name,
-                              })
-                            }
-                            className={`p-2 rounded-lg border transition-all ${
-                              formData.categoryIcon === icon.name
-                                ? "border-primary bg-primary/10 text-primary"
-                                : "border-border hover:border-primary/50"
-                            }`}
-                          >
-                            <IconComponent className="w-4 h-4" />
-                          </button>
-                        )
-                      })}
+                    <Label>Icon Kategori</Label>
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg border bg-muted/50 flex items-center justify-center">
+                        {(() => {
+                          const IconPreview = getIconComponent(formData.categoryIcon)
+                          return <IconPreview className="w-5 h-5" />
+                        })()}
+                      </div>
+                      <Input
+                        placeholder="Ketik nama icon..."
+                        value={formData.categoryIcon}
+                        onChange={(e) => setFormData({ ...formData, categoryIcon: e.target.value || 'Globe' })}
+                        className="flex-1"
+                      />
                     </div>
+                    
+                    {/* Real-time icon suggestions based on input */}
+                    <div className="max-h-32 overflow-y-auto border rounded-lg p-2 bg-muted/20">
+                      <div className="flex flex-wrap gap-1">
+                        {allIconNames
+                          .filter(name => name.toLowerCase().includes(formData.categoryIcon.toLowerCase()))
+                          .slice(0, 20)
+                          .map((iconName) => {
+                            const IconComponent = getIconComponent(iconName)
+                            const isSelected = formData.categoryIcon === iconName
+                            return (
+                              <button
+                                key={iconName}
+                                type="button"
+                                onClick={() => setFormData({ ...formData, categoryIcon: iconName })}
+                                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs border transition-all ${
+                                  isSelected
+                                    ? 'border-primary bg-primary/10 text-primary'
+                                    : 'border-border hover:border-primary/50 bg-background'
+                                }`}
+                              >
+                                <IconComponent className="w-3 h-3" />
+                                {iconName}
+                              </button>
+                            )
+                          })}
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Menampilkan {allIconNames.filter(name => name.toLowerCase().includes(formData.categoryIcon.toLowerCase())).slice(0, 20).length} dari {allIconNames.length}+ icon. Lihat semua di <a href="https://lucide.dev/icons" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">lucide.dev/icons</a>
+                    </p>
                   </div>
                 )}
               </div>
