@@ -35,6 +35,8 @@ import {
 } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
 
+import { Sun, Moon } from 'lucide-react'
+
 interface Recommendation {
   id: string
   title: string
@@ -65,6 +67,7 @@ export default function Home() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   
   // Auth state
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -82,8 +85,21 @@ export default function Home() {
   const [formData, setFormData] = useState({
     url: '',
     category: '',
-    categoryIcon: 'Globe',
+    categoryIcon: '',
   })
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+
+    setTheme(newTheme)
+    localStorage.setItem('kumink_theme', newTheme)
+
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
 
   // Get existing categories with their icons
   const existingCategories = recommendations.reduce((acc, rec) => {
@@ -102,6 +118,19 @@ export default function Home() {
       setStoredPassword(pwd)
     }
     fetchRecommendations()
+  }, [])
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('kumink_theme') as 'dark' | 'light' | null
+
+    const initialTheme = savedTheme || 'dark'
+    setTheme(initialTheme)
+
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }, [])
 
   const fetchRecommendations = async () => {
@@ -184,14 +213,14 @@ export default function Home() {
   const handleCategoryClick = (category: string) => {
     if (formData.category === category) {
       // Deselect - clear category
-      setFormData({ ...formData, category: '', categoryIcon: 'Globe' })
+      setFormData({ ...formData, category: '', categoryIcon: '' })
     } else {
       // Select - set category and icon
       const existingIcon = existingCategories[category]
       setFormData({ 
         ...formData, 
         category, 
-        categoryIcon: existingIcon || 'Globe'
+        categoryIcon: existingIcon || ''
       })
     }
   }
@@ -312,10 +341,24 @@ export default function Home() {
                 />
               </div>
               
-              <Button onClick={handleAddClick} className="gap-2 shadow-lg shadow-primary/20">
-                <Plus className="w-5 h-5" />
-                <span className="hidden sm:inline">Tambah</span>
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleTheme}
+                  className="shadow-sm"
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="w-4 h-4" />
+                  ) : (
+                    <Moon className="w-4 h-4" />
+                  )}
+                </Button>
+
+                <Button onClick={handleAddClick} className="gap-2 shadow-lg shadow-primary/20">
+                  <Plus className="w-5 h-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -376,7 +419,7 @@ export default function Home() {
                   <Card key={category} className="overflow-hidden border">
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center gap-2 text-lg">
-                        <IconComponent className="w-5 h-5 text-[#4ba3f7]" />
+                        <IconComponent className="w-5 h-5 text-primary" />
                         {category}
                         <Badge variant="secondary">{items.length}</Badge>
                       </CardTitle>
