@@ -68,6 +68,7 @@ export default function Home() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [footerClicks, setFooterClicks] = useState(0)
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down')
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   
@@ -248,7 +249,17 @@ export default function Home() {
   }
 
   const handleFooterClick = () => {
-    handleAddClick()
+    const count = footerClicks + 1
+    setFooterClicks(count)
+
+    if (count >= 5) {
+      handleAddClick()
+      setFooterClicks(0)
+    }
+
+    setTimeout(() => {
+      setFooterClicks(0)
+    }, 2000)
   }
 
   const handleAddClick = () => {
@@ -422,6 +433,12 @@ export default function Home() {
                     <Moon className="w-4 h-4" />
                   )}
                 </Button>
+
+                {isAuthenticated && (
+                  <Button onClick={handleAddClick} className="gap-2 shadow-lg shadow-primary/20">
+                    <Plus className="w-5 h-5" />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
