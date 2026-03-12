@@ -30,7 +30,8 @@ import {
   Globe,
   Search,
   Lock,
-  Check,
+  ArrowUp,
+  ArrowDown,
   type LucideIcon
 } from 'lucide-react'
 import * as LucideIcons from 'lucide-react'
@@ -67,6 +68,7 @@ export default function Home() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down')
   const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   
   // Auth state
@@ -74,6 +76,7 @@ export default function Home() {
   const [storedPassword, setStoredPassword] = useState('')
   
   // Dialog states
+  const [titleEdited, setTitleEdited] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false)
   const [passwordInput, setPasswordInput] = useState('')
@@ -84,6 +87,7 @@ export default function Home() {
   // Form state
   const [formData, setFormData] = useState({
     url: '',
+    title: '',
     category: '',
     categoryIcon: '',
   })
@@ -109,7 +113,23 @@ export default function Home() {
     return acc
   }, {} as Record<string, string | null>)
 
-  // Check if already authenticated on mount
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight
+
+      if (scrollTop > pageHeight - 200) {
+        setScrollDirection('up')
+      } else {
+        setScrollDirection('down')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   useEffect(() => {
     const auth = localStorage.getItem('linkdir_auth')
     const pwd = localStorage.getItem('linkdir_pwd')
@@ -147,6 +167,43 @@ export default function Home() {
       })
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const fetchTitle = async (url: string) => {
+    try {
+      const res = await fetch('/api/get-title', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      })
+
+      const data = await res.json()
+
+      setFormData((prev) => {
+        if (titleEdited) return prev
+
+        return {
+          ...prev,
+          title: data.title || '',
+        }
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleScrollButton = () => {
+    if (scrollDirection === 'down') {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      })
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
   }
 
@@ -190,6 +247,10 @@ export default function Home() {
     }
   }
 
+  const handleFooterClick = () => {
+    handleAddClick()
+  }
+
   const handleAddClick = () => {
     if (isAuthenticated) {
       setIsDialogOpen(true)
@@ -212,10 +273,8 @@ export default function Home() {
   // Handle category chip click
   const handleCategoryClick = (category: string) => {
     if (formData.category === category) {
-      // Deselect - clear category
       setFormData({ ...formData, category: '', categoryIcon: '' })
     } else {
-      // Select - set category and icon
       const existingIcon = existingCategories[category]
       setFormData({ 
         ...formData, 
@@ -225,14 +284,23 @@ export default function Home() {
     }
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
+
+    const form = new FormData(e.currentTarget)
+    const title = form.get("title") as string
+
     try {
       const response = await fetch('/api/recommendations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, password: storedPassword }),
+        body: JSON.stringify({
+          url: formData.url,
+          title: title,
+          category: formData.category,
+          categoryIcon: formData.categoryIcon,
+          password: storedPassword
+        }),
       })
 
       const data = await response.json()
@@ -248,7 +316,7 @@ export default function Home() {
       if (response.ok) {
         toast({ title: 'Berhasil!', description: 'Link berhasil ditambahkan' })
         setIsDialogOpen(false)
-        setFormData({ url: '', category: '', categoryIcon: 'Globe' })
+        setFormData({ url: '', title: '', category: '', categoryIcon: 'Globe' })
         fetchRecommendations()
       } else {
         toast({ title: 'Error', description: data.error || 'Gagal menambahkan link', variant: 'destructive' })
@@ -331,7 +399,7 @@ export default function Home() {
             </div>
             
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="relative flex-1 sm:w-64">
+              <div className="relative flex-1 w-full">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   placeholder="Cari link..."
@@ -353,10 +421,6 @@ export default function Home() {
                   ) : (
                     <Moon className="w-4 h-4" />
                   )}
-                </Button>
-
-                <Button onClick={handleAddClick} className="gap-2 shadow-lg shadow-primary/20">
-                  <Plus className="w-5 h-5" />
                 </Button>
               </div>
             </div>
@@ -455,11 +519,9 @@ export default function Home() {
                                       onError={(e) => {
                                         const target = e.currentTarget as HTMLImageElement
 
-                                        // kalau imageUrl gagal → coba favicon
                                         if (target.src !== faviconUrl && faviconUrl) {
                                           target.src = faviconUrl
                                         } else {
-                                          // kalau favicon juga gagal → hilangkan gambar
                                           target.style.display = "none"
                                         }
                                       }}
@@ -467,7 +529,7 @@ export default function Home() {
                                   )
                                 })()}
                               </div>
-                              
+
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between gap-2">
                                   <a
@@ -478,14 +540,17 @@ export default function Home() {
                                   >
                                     {item.title}
                                   </a>
-                                  <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive hover:bg-destructive/10"
-                                    onClick={() => handleDeleteClick(item.id)}
-                                  >
-                                    <Trash2 className="w-3 h-3" />
-                                  </Button>
+
+                                  {isAuthenticated && (
+                                    <Button
+                                      variant="ghost"
+                                      size="icon"
+                                      className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive hover:bg-destructive/10"
+                                      onClick={() => handleDeleteClick(item.id)}
+                                    >
+                                      <Trash2 className="w-3 h-3" />
+                                    </Button>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -503,7 +568,13 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t bg-muted/30 py-6 mt-auto">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© Kumink - Kumpulan Link Apapun</p>
+          <p
+            onClick={handleFooterClick}
+            style={{ cursor: "default" }}
+            className="select-none"
+          >
+            © Kumink - Kumpulan Link Apapun
+          </p>
           <p className="mt-1">Total {recommendations.length} link dalam {Object.keys(groupedRecommendations).length} kategori</p>
         </div>
       </footer>
@@ -562,7 +633,8 @@ export default function Home() {
       <Dialog open={isDialogOpen} onOpenChange={(open) => {
         setIsDialogOpen(open)
         if (!open) {
-          setFormData({ url: '', category: '', categoryIcon: 'Globe' })
+          setFormData({ url: '', title: '', category: '', categoryIcon: 'Globe' })
+          setTitleEdited(false)
         }
       }}>
         <DialogContent className="sm:max-w-[450px] p-0">
@@ -588,8 +660,28 @@ export default function Home() {
                     type="url"
                     placeholder="https://example.com"
                     value={formData.url}
+                    onChange={(e) => {
+                      const url = e.target.value
+
+                      setFormData({ ...formData, url })
+
+                      if (url.startsWith("http") && !formData.title) {
+                        fetchTitle(url)
+                      }
+                    }}
+                    required
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    name="title"
+                    placeholder="Judul website"
+                    value={formData.title}
                     onChange={(e) =>
-                      setFormData({ ...formData, url: e.target.value })
+                      setFormData({ ...formData, title: e.target.value })
                     }
                     required
                   />
@@ -728,6 +820,18 @@ export default function Home() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Button
+        onClick={handleScrollButton}
+        size="icon"
+        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
+        style={{ backgroundColor: "oklch(0.65 0.18 250)" }}
+      >
+        {scrollDirection === 'down' ? (
+          <ArrowDown className="w-5 h-5" />
+        ) : (
+          <ArrowUp className="w-5 h-5" />
+        )}
+      </Button>
     </div>
   )
 }

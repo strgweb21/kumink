@@ -132,7 +132,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { url, category, categoryIcon, password, verifyOnly } = body
+    const { url, title: userTitle, category, categoryIcon, password, verifyOnly } = body
 
     // Verify password
     if (password !== ADMIN_PASSWORD) {
@@ -159,9 +159,13 @@ export async function POST(request: Request) {
 
     // Get website metadata (title and favicon)
     const metadata = await getWebsiteMetadata(normalizedUrl)
-    
-    // Use extracted title, fallback to domain name
-    let title = metadata.title
+
+    let title = userTitle
+
+    if (!title || title.trim() === '') {
+      title = metadata.title
+    }
+
     if (!title) {
       try {
         const urlObj = new URL(normalizedUrl)
